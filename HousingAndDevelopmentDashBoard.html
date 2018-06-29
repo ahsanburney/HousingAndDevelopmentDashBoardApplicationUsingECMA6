@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Housing And Development Dashboard</title>
+    <link type="text/css" rel="stylesheet" href="views/styles/bootstrap.css">
+    <link type="text/css" rel="stylesheet" href="views/styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="views/styles/styles.css">
+	<script src="controllers/scriptLoader.js"></script>
+    <script src="views/DashBoard.js"></script>
+</head>
+
+<body>
+    <div id="header" class="header">
+        <h1 align="center"><b>HOUSING AND DEVELOPMENT DASHBOARD</b></h1>
+    </div>
+    <div id="divCheckbox" style="visibility: hidden">
+        <option ng-repeat="x in names">{{x}}</option>
+    </div>
+    <div id="divCheckbox" style="visibility: hidden">
+        <select>
+    <option value="" disabled="disabled" selected="selected">Please select a name</option>
+    <option value="1">One</option>
+    <option value="2">Two</option>
+    </select>
+    </div>
+    <div class="datasetSelection">
+        <h1 align="center" style="font-family: normal;"><b>Please Select Dataset</b></h1>
+        <select class="selectBox" id="datasetValues">
+            <option value="models/data/AffordableRentalHousingDevelopments.csv" selected="selected">Affordable Rental Housing Developments</option>
+            <option value="models/data/BuildingPermits.csv">Building Permits</option>
+            <option value="models/data/BuildingViolations.csv">Building Violations</option>
+            <option value="models/data/VacantProperties.csv">Vacant Properties</option>
+            <option value="models/data/AbandonedBuildings.csv" >Abandoned Buildings</option>
+         </select>
+        <br><br>
+        <input class="button" type="button" onclick="getData()" value="Submit"></input><br><br>
+    </div>
+    <div id="divCheckbox" style="visibility: hidden">
+        <select>
+        <option value="" disabled selected>Please select a name...</option> 
+        <option>this</option>
+        <option>that</option>
+     </select>
+    </div>
+    <div id="divCheckbox" style="visibility: hidden">
+        <option ng-repeat="x in names">{{x}}</option>
+    </div>
+    <div>
+        <div class="table-responsive dataTable" id="gettableData"></div>
+    </div>
+    <br><br>
+    <div style="border: 1px solid #dddddd; text-align: center; padding: 10px;" id="parse"></div>
+    <div hidden="true" style="border: 1px solid #dddddd; text-align: center; padding: 10px;" id="parsed">
+        <br>
+        <div id="divCheckbox" style="visibility: hidden">
+            <option ng-repeat="x in names">{{x}}</option>
+        </div>
+        <div style="border: 1px solid #dddddd; text-align: center; font-size: 22; font-weight:bold; padding: 8px; font-family:italic bold 20px arial,serif;">
+            <label>Select the appropriate Data to display on Chart</label>
+            <div class="sidebyside" id="categoryCheckbox"></div>
+        </div>
+        <br><br>
+
+        <div style="margin-left: auto; margin-right: auto; border: 1px solid #dddddd; display:flex; flex-flow:row wrap; text-align: center; padding: 8px;">
+            <div>
+                <label>Please Select Below radio Button to filter</label>
+				<br>
+                <label><input type="radio" name="radioValue" value="greaterSymbol">Greater or equal to </input> <br />
+               <input type="radio" name="radioValue" value="lesserSymbol"> Less or equal to</input><br />
+               <input type="radio" name="radioValue" value="equalSymbol"> equal to</input></label><br />
+            </div>
+            <br>&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp
+            <div>
+                <label >Give Numerical Value</label>
+                <br>
+                <input id="radioValue" style="color: white; padding: 15px 32px; text-align: center; background-color: black;  text-decoration: none;font-size: 20px; " type="number" name="radioValue" value="radioValue"></input>
+            </div>
+        </div>
+        <div>
+            <br>&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp
+            <label>
+               <div id="getSelectedChartId">
+                  <form>
+            <label style="border: 2px solid white;">Please Select the type of Chart to Display</label>
+            <br>
+			<br>
+            <input id="barChart" value="barChart" type="checkbox"> Bar Chart</input>&nbsp&nbsp&nbsp
+            <input id="pieChart" value="pieChart" type="checkbox"> Pie Chart</input>&nbsp&nbsp&nbsp
+            <input id="lineChart" value="lineChart" type="checkbox"> Line Chart</input>&nbsp&nbsp&nbsp
+            <input id="polarAreaChart" value="polarAreaChart" type="checkbox"> PolarArea Chart</input>&nbsp&nbsp&nbsp
+            <input id="radarChart" value="radarChart" type="checkbox"> Radar Chart</input>&nbsp&nbsp&nbsp
+            <input id="doughnutChart" value="doughnutChart" type="checkbox"> Doughnut Chart</input><br /><br />
+            <input onclick="getCharts()" type="button" value="Show Charts"></input><br><br>
+            </form>
+            <div id="mapArea"></div>
+        </div>
+        </label>
+    </div>
+    </div>
+    <div id="divCheckbox" style="visibility: hidden">
+        <option ng-repeat="x in names">{{x}}</option>
+    </div>
+    <div align="center" id="displayChart" hidden="true" width="80%">
+        <div class="chartDisplaySetting" align="center" id="chartArea">
+            <canvas id="showPieChart"><br><br></canvas>
+            <div id="divCheckbox" style="visibility: hidden">
+                <option ng-repeat="x in names">{{x}}</option>
+            </div>
+            <canvas id="showBarChart"><br><br></canvas>
+            <div id="divCheckbox" style="visibility: hidden">
+                <option ng-repeat="x in names">{{x}}</option>
+            </div>
+            <canvas id="showLineChart"><br><br></canvas>
+            <div id="divCheckbox" style="visibility: hidden">
+                <option ng-repeat="x in names">{{x}}</option>
+            </div>
+            <canvas id="showdoughnutChart"><br><br></canvas>
+            <div id="divCheckbox" style="visibility: hidden">
+                <option ng-repeat="x in names">{{x}}</option>
+            </div>
+            <canvas id="showPolarAreaChart"><br><br></canvas>
+            <div id="divCheckbox" style="visibility: hidden">
+                <option ng-repeat="x in names">{{x}}</option>
+            </div>
+            <canvas id="showradarChart"><br><br></canvas>
+            <br/>
+        </div>
+    </div>
+    <br><br><br><br><br><br>
+    <div id="displayingMap" class="container"></div>
+    <br><br>
+    <div id="divCheckbox" style="visibility: hidden">
+        <option ng-repeat="x in names">{{x}}</option>
+    </div>
+    <div id="divCheckbox" style="visibility: hidden">
+        <option ng-repeat="x in names">{{x}}</option>
+    </div>
+    <div id="divCheckbox" style="visibility: hidden">
+        <option ng-repeat="x in names">{{x}}</option>
+    </div>
+    <div id="divCheckbox" style="visibility: hidden">
+        <option ng-repeat="x in names">{{x}}</option>
+    </div>
+    <div id="divCheckbox" style="visibility: hidden">
+        <option ng-repeat="x in names">{{x}}</option>
+    </div>
+    <div id="divCheckbox" style="visibility: hidden">
+        <option ng-repeat="x in names">{{x}}</option>
+    </div>
+    <div id="footer">TEAM-18, CSP-586</div>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAk82KWYeqK-cPn2efR8aKpRIT-mi-yjF4&sensor=false"></script>
+</body>
+
+</html>
